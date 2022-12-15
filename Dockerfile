@@ -8,7 +8,7 @@ LABEL maintainer="lcaparros"
 RUN \
   echo "**** install packages ****" && \
   apk update && \
-  apk add --no-cache curl bash jq && \
+  apk add --no-cache curl bash jq util-linux && \
   echo "**** cleanup ****" && \
   rm -rf \
     /tmp/* \
