@@ -27,13 +27,3 @@ $ docker build --build-arg VERSION=<version> --build-arg BUILD_DATE="$(date +%Y/
 $ docker tag terraform lcaparros/docker-alpine-base:<version>
 $ docker push lcaparros/docker-alpine-base:<version>
 ```
-
-# Usage
-
-It is necessary to share a volume to the current directory to make the necessary docker-alpine-base files available for the Docker container (use the `/files` volume in the container). A good way to use this image could be to create a new alias in your bash_profile file:
-
-```shell
-alias docker-alpine-base='docker run --rm -it -v $(pwd):/files lcaparros/docker-alpine-base:<version>'
-```
-
-Now you could just type `docker-alpine-base` in the CLI and it will work as the real docker-alpine-base binary.
