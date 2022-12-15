@@ -1,10 +1,10 @@
-# This is an example file for getting version from Allure repository
-# Please adapt to your criteria
-name: Get latest Allure release version
+name: Get latest Alpine release version
+
 on:
   schedule:
-    # - cron:  '0 0 * * 5'
-    - workflow_dispatch
+    - cron:  '0 0 * * 5'
+  workflow_dispatch:
+
 jobs:
   get-version:
     runs-on: ubuntu-latest
@@ -15,11 +15,10 @@ jobs:
       - name: Fetch release version
         id: fetch_version
         run: |
-          echo "OLD_VERSION = $(cat release-versions/allure-latest.txt)"
-          curl -sL https://api.github.com/repos/allure-framework/allure2/releases/latest | \
-          jq -r ".tag_name" > release-versions/allure-latest.txt
-          echo "CURRENT_VERSION = $(cat release-versions/allure-latest.txt)"
-          echo ::set-output name=VERSION::$(cat release-versions/allure-latest.txt)
+          echo "OLD_VERSION = $(cat release-versions/alpine-latest.txt)"
+          curl -s https://registry.hub.docker.com/v2/repositories/library/alpine/tags | \
+          jq -r '.results[1].name' > release-versions/alpine-latest.txt
+          echo ::set-output name=VERSION::$(cat release-versions/alpine-latest.txt)
       - name: Check for modified files
         id: git_check
         run: echo ::set-output name=MODIFIED::$([ -z "`git status --porcelain`" ] && echo "false" || echo "true")
